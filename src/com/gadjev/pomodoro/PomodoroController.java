@@ -14,9 +14,6 @@ public class PomodoroController {
     private TextField minutesField;
 
     @FXML
-    private Button startButton;
-
-    @FXML
     private Label messageLabel;
 
     private PomodoroModel pomodoroModel = new PomodoroModel();
@@ -27,6 +24,5 @@ public class PomodoroController {
 
     public void onStart() {
         pomodoroModel.start(new Pomodoro(Integer.parseInt(minutesField.getText())), timerLabel, messageLabel);
-        startButton.setDisable(true);
     }
 }

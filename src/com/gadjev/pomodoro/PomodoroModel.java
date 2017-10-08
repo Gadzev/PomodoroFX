@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 public class PomodoroModel {
 
     public void start(final Pomodoro pomodoro, final Label timeLabel, final Label messageLabel) {
+        messageLabel.setText("");
        Task task = new Task<Void>() {
            @Override
            public Void call() throws Exception {

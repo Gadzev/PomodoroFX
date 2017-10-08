@@ -12,7 +12,7 @@
 
     <Label fx:id="timerLabel"/>
 
-    <Button text="Start" fx:id="startButton" onAction="#onStart"/>
+    <Button text="Start" onAction="#onStart"/>
 
     <Label fx:id="messageLabel" />
 
