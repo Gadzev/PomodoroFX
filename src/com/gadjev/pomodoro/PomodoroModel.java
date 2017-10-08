@@ -32,6 +32,7 @@ public class PomodoroModel {
                 @Override
                 public void run() {
                     messageLabel.setText("Time is up");
+                    pomodoro.ring();
                 }
             });
             return null;

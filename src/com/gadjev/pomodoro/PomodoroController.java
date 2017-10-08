@@ -23,6 +23,10 @@ public class PomodoroController {
     }
 
     public void onStart() {
-        pomodoroModel.start(new Pomodoro(Integer.parseInt(minutesField.getText())), timerLabel, messageLabel);
+        if (minutesField.getText() == null || !minutesField.getText().trim().isEmpty()) {
+            pomodoroModel.start(new Pomodoro(Integer.parseInt(minutesField.getText())), timerLabel, messageLabel);
+        } else {
+            messageLabel.setText("Please enter minutes for pomodoro");
+        }
     }
 }

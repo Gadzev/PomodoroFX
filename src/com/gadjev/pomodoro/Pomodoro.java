@@ -19,6 +19,6 @@ public class Pomodoro {
     }
 
     public void ring() {
-        // TODO
+        active = false;
     }
 }
