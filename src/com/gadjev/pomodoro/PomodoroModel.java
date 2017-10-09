@@ -14,7 +14,6 @@ public class PomodoroModel {
             new SynchronousQueue<>());
 
     public void start(final Pomodoro pomodoro, final Label timeLabel, final Label messageLabel) {
-
         if (executorService.isShutdown()) {
             executorService = new ThreadPoolExecutor(
                     1, 1,
