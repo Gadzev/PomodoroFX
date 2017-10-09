@@ -15,6 +15,13 @@ public class PomodoroModel {
 
     public void start(final Pomodoro pomodoro, final Label timeLabel, final Label messageLabel) {
 
+        if (executorService.isShutdown()) {
+            executorService = new ThreadPoolExecutor(
+                    1, 1,
+                    60, TimeUnit.SECONDS,
+                    new SynchronousQueue<>());
+        }
+
         messageLabel.setText("");
     try {
         executorService.execute(() -> {
@@ -32,7 +39,6 @@ public class PomodoroModel {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    System.out.println("Interrupted: " + e);
                     stop();
                 }
                 time -= 1;
@@ -44,7 +50,7 @@ public class PomodoroModel {
             });
         });
     } catch (RejectedExecutionException e) {
-        messageLabel.setText("Wait for current pomodoro to finish");
+        messageLabel.setText("Please stop current pomodoro before starting a new one");
     }
 
     }

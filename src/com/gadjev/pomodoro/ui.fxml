@@ -13,6 +13,8 @@
 
     <Button text="Start" onAction="#onStart"/>
 
+    <Button text="Stop" onAction="#onStop" />
+
     <Label fx:id="messageLabel" />
 
 </VBox>

@@ -42,4 +42,8 @@ public class PomodoroController {
         pomodoroModel.stop();
         Platform.exit();
     }
+
+    public void onStop() {
+        pomodoroModel.stop();
+    }
 }
