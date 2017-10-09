@@ -28,10 +28,11 @@ public class PomodoroController {
 
     public void onStart() {
         try {
-            if (minutesField.getText() == null || !minutesField.getText().trim().isEmpty()) {
+            if ((minutesField.getText() == null || !minutesField.getText().trim().isEmpty() )
+                    && Integer.parseInt(minutesField.getText()) > 0) {
                 pomodoroModel.start(new Pomodoro(Integer.parseInt(minutesField.getText())), timerLabel, messageLabel);
             } else {
-                messageLabel.setText("Please enter minutes for pomodoro");
+                messageLabel.setText("Invalid input");
             }
         } catch (NumberFormatException e) {
             messageLabel.setText("Please enter a valid number");
