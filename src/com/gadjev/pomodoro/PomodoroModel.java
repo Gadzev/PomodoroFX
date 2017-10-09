@@ -5,43 +5,46 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class PomodoroModel {
+
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public void start(final Pomodoro pomodoro, final Label timeLabel, final Label messageLabel) {
         messageLabel.setText("");
-       Task task = new Task<Void>() {
-           @Override
-           public Void call() throws Exception {
-            int time = convertToSeconds(pomodoro.getMinutes());
-            long delay = time * 1000;
+      executorService.execute(() -> {
+              int time = convertToSeconds(pomodoro.getMinutes());
+              long delay = time * 1000;
 
-            do {
-                final int minutes = time / 60;
-                final int seconds = time % 60;
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        timeLabel.setText("" + minutes + ":" + seconds);
-                    }
-                });
-                Thread.sleep(1000);
-                time -= 1;
-                delay -= 1000;
-            } while (delay != 0);
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    messageLabel.setText("Time is up");
-                    pomodoro.ring();
-                }
-            });
-            return null;
-           }
-       };
+              do {
+                  final int minutes = time / 60;
+                  final int seconds = time % 60;
+                  Platform.runLater(()  -> {
 
-       Thread thread = new Thread(task);
-       thread.setDaemon(true);
-       thread.start();
+                          timeLabel.setText("" + minutes + ":" + seconds);
+
+                  });
+                  try {
+                      Thread.sleep(1000);
+                  } catch (InterruptedException e) {
+                      System.out.println("Interrupted: " + e);
+                      stop();
+                  }
+                  time -= 1;
+                  delay -= 1000;
+              } while (delay != 0);
+              Platform.runLater(() -> {
+                      messageLabel.setText("Time is up");
+                      pomodoro.ring();
+              });
+      });
+    }
+
+    public void stop() {
+        executorService.shutdownNow();
     }
 
     private int convertToSeconds(int minutes) {

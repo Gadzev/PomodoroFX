@@ -1,5 +1,6 @@
 package com.gadjev.pomodoro;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -15,7 +16,11 @@ public class PomodoroController {
     @FXML
     private Label messageLabel;
 
-    private PomodoroModel pomodoroModel = new PomodoroModel();
+    private PomodoroModel pomodoroModel;
+
+    public PomodoroController(PomodoroModel pomodoroModel) {
+        this.pomodoroModel = pomodoroModel;
+    }
 
     public void initialize() {
 
@@ -31,5 +36,10 @@ public class PomodoroController {
         } catch (NumberFormatException e) {
             messageLabel.setText("Please enter a valid number");
         }
+    }
+
+    public void onExit() {
+        pomodoroModel.stop();
+        Platform.exit();
     }
 }

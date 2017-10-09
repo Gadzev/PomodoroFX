@@ -11,11 +11,18 @@ public class PomodoroApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent loader = FXMLLoader.load((getClass().getResource("ui.fxml")));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("ui.fxml")));
         stage.setTitle("PomodoroFX");
         stage.getIcons().add(new Image(getClass().getResource("images/pomodoro-ico.png").toExternalForm()));
 
-        stage.setScene(new Scene(loader));
+        PomodoroController pomodoroController = new PomodoroController(new PomodoroModel());
+
+        loader.setController(pomodoroController);
+
+
+
+        stage.setScene(new Scene(loader.load()));
+        stage.setOnCloseRequest(e -> pomodoroController.onExit());
         stage.show();
     }
 

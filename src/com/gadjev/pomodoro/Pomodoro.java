@@ -3,11 +3,10 @@ package com.gadjev.pomodoro;
 public class Pomodoro {
 
     private int minutes;
-    private boolean active;
+    private boolean active = false;
 
     public Pomodoro(int mins) {
         this.minutes = mins;
-        active = true;
     }
 
     public int getMinutes() {
@@ -16,6 +15,10 @@ public class Pomodoro {
 
     public boolean isActive() {
         return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public void ring() {
