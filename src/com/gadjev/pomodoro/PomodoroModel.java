@@ -2,10 +2,7 @@ package com.gadjev.pomodoro;
 
 
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.control.Label;
-
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
