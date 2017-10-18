@@ -21,8 +21,9 @@ public class Pomodoro {
     public void ring() {
 
         Platform.runLater(() -> {
+            String soundFile = getClass().getResource("raw/beep.mp3").toString();
 
-            Media beep = new Media(new File("raw/beep.mp3").toURI().toString());
+            Media beep = new Media(soundFile);
             MediaPlayer mediaPlayer = new MediaPlayer(beep);
             mediaPlayer.play();
         });
